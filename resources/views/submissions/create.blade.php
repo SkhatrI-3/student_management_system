@@ -193,18 +193,20 @@ $teacher = \App\Models\Teacher::where('submission_id', $submission->id)->first()
 
                 </div>
 
-                @if ($errors->has('description'))
-                <span class="text-danger">{{ $message }}</span>
-            @endif
+               @error('description')
+    <span class="text-danger">{{ $message }}</span>
+@enderror
+
             
             <div class="mb-3">
                 <label for="date" class="form-label">Date</label>
                 <input type="date" readonly class="form-control" name="date" id="date">
             </div>
             
-            @if ($errors->has('date'))
-                <span class="text-danger">{{ $message }}</span>
-            @endif
+           @error('description')
+    <span class="text-danger">{{ $message }}</span>
+@enderror
+
             
 
 

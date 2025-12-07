@@ -15,12 +15,19 @@ class teacher
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->role == "teacher") {
-            return $next($request); // Admin user, allow access to the requested route
-        } 
-        else {
+        $user = auth()->user();
+
+        if ($user && $user->role == "teacher") {
+            // Teacher user, allow access to the requested route
+            // Retrieve the students related to the teacher
+            $students = $user->students; // Assuming a relationship exists in the User model
+
+            // You can now use $students to access the data of all students related to this teacher
+
+            return $next($request);
+        } else {
             // Handle other cases here
-            return redirect('/')->with('error', 'Unauthorized access'); // Redirect unauthorized users
+            return redirect('/')->with('error', 'Unauthorized access');
         }
     }
 }

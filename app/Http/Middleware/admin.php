@@ -16,12 +16,23 @@ class admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->role == "admin") {
-            return $next($request); // Admin user, allow access to the requested route
-        } 
-        else {
+        $user = auth()->user();
+
+        if ($user && $user->role == "admin") {
+            // Admin user, allow access to the requested route
+            return $next($request);
+        } elseif ($user && $user->role == "teacher") {
+            // Additional logic for teachers
+            // You can customize this logic based on your requirements
+            return $next($request);
+        } elseif ($user && $user->role == "student") {
+            // Additional logic for students
+            // You can customize this logic based on your requirements
+            return $next($request);
+        } else {
             // Handle other cases here
-            return redirect('/')->with('error', 'Unauthorized access'); // Redirect unauthorized users
+            return redirect('/')->with('error', 'Unauthorized access');
         }
     }
-}
+    }
+

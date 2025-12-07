@@ -42,31 +42,4 @@ Route::get('/teacher/home', [App\Http\Controllers\HomeController::class, 'teache
 Route::get('/download/{file}', [SubmissionController::class, 'download'])->name('download');
 Route::get('/teacher/assignments', [TeacherController::class, 'viewAssignments'])->name('teachers.viewAssignments');
 Route::get('/student/assignments', [AssignmentController::class, 'givenAssignments'])->name('assignments.givenAssignments');
-Route::middleware(['auth'])->group(function () {
-    
-    Route::group(['middleware' => 'admin'], function () {
-        // Routes accessible only to admins
-        Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
-
-        // Routes for admin to access teacher and student data
-        Route::get('/admin/teachers', [AdminController::class, 'listTeachers']);
-        Route::get('/admin/students', [AdminController::class, 'listStudents']);
-    });
-
-    Route::group(['middleware' => 'teacher'], function () {
-        // Routes accessible only to teachers
-        Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard']);
-
-        // Routes for teachers to access student data
-        Route::get('/teacher/students', [TeacherController::class, 'listStudents']);
-    });
-
-    Route::group(['middleware' => 'checkRole:student'], function () {
-        // Routes accessible only to students
-        Route::get('/student/dashboard', [StudentController::class, 'dashboard']);
-    });
-
-    // Common routes accessible to all authenticated users
-    Route::get('/common/dashboard', [CommonController::class, 'dashboard']);
-});
 

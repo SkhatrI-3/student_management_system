@@ -14,16 +14,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('submissions', function (Blueprint $table) {
-            $table->id();
-            $table->string('description')->nullable;
-            $table->string('file')->nullable;
-            $table->date('date')->nullable;
-            $table->unsignedBigInteger('user_id'); // Foreign key column
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('teacher_id'); // Foreign key column
-            $table->foreign('teacher_id')->references('id')->on('teachers');
-            $table->timestamps();
-        });
+    $table->id();
+    $table->string('description')->nullable();
+    $table->string('file')->nullable();
+    $table->date('date')->nullable();
+
+    $table->unsignedBigInteger('user_id');
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+    $table->unsignedBigInteger('teacher_id');
+    $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+
+    $table->timestamps();
+});
+
     }
 
     /**

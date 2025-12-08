@@ -12,19 +12,20 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('teachers', function (Blueprint $table) {
-            $table->id();
-            $table->string('teacher_name')->nullable;
-            $table->string('teacher_sub')->nullable;
-            $table->string('teacher_image')->nullable;
-            $table->string('class')->nullable;
-            $table->string('section')->nullable;
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('submission_id')->nullable();
-            $table->foreign('submission_id')->references('id')->on('submissions');
-            $table->timestamps();
-        });
+       Schema::create('teachers', function (Blueprint $table) {
+    $table->id();
+    $table->string('teacher_name')->nullable();
+    $table->string('teacher_sub')->nullable();
+    $table->string('teacher_image')->nullable();
+    $table->string('class')->nullable();
+    $table->string('section')->nullable();
+
+    $table->unsignedBigInteger('user_id')->nullable();
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+    $table->timestamps();
+});
+
     }
 
     /**

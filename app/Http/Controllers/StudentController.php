@@ -17,7 +17,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $teacher = auth()->user();
+        $teacher = auth()->user()->teacher;
 
         $students = Student::where('teacher_id',$teacher->id)->paginate(10);
         return view('students.index', compact('students'));    }
@@ -47,13 +47,17 @@ class StudentController extends Controller
             'section' => ['required', 'regex:/^[A-Z]$/'],
             'subject' => 'required',
         ]);
+        $teacher = auth()->user()->teacher;
+        if(!$teacher){
+            return redirect()->back()->with('error','Teacher not found');
+        }
         $student = new Student();
         $student->std_name = $request->name;
         $student->std_subject = $request->subject;
         $student->std_class = $request->class;
         $student->std_section = $request->section;
         $student->std_roll = $request->roll;
-        $student->teacher_id=$request->teacher_id;
+        $student->teacher_id=$teacher->id;
         
         $student->save();
 
@@ -80,7 +84,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::where('id', $id)->first();
+        $student = Student::where('id', $id)->where('teacher_id',auth()->user()->teacher->id)->firstOrFail();
         return view('students.edit', compact('student'));
     
     }
@@ -94,6 +98,9 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        if ($student->teacher_id !== auth()->user()->teacher->id) {
+        abort(403);
+    }
         $request->validate([
             'name' => 'required',
             'roll'=> 'required',
@@ -120,6 +127,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        if ($student->teacher_id !== auth()->user()->teacher->id) {
+        abort(403);
+    }
         $student->delete();
 
         return redirect()->route('students.index');    }

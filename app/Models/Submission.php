@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Teacher;
 
 class Submission extends Model
 {
@@ -13,8 +14,10 @@ class Submission extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function teacher()
-    {
-        return $this->belongsTo(\App\Models\Teacher::class, 'teacher_id');
-    }
+    
+   public function teacher(){
+    return $this->belongsTo(Teacher::class, 'teacher_id');
+
+   }
+
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Teacher extends Model
 {
     use HasFactory;
-    protected $fillable=['teacher_name','teacher_sub','teacher_image','class','section','submission_id','user_id'];
+    protected $fillable=['teacher_name','teacher_sub','teacher_image','class','section','user_id'];
     public function submission()
     {
         return $this->belongsTo(Teacher::class, 'submission_id');
@@ -19,6 +19,14 @@ class Teacher extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
     // Teacher.php
+    public function submissions(){
+        return $this->hasMany(Submission::class,'teacher_id');
+    }
+    public function students()
+{
+    return $this->hasMany(Student::class);
+}
+
 protected $policy = TeacherPolicy::class;
 
     

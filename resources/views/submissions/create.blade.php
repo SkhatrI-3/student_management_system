@@ -77,7 +77,7 @@
     </style>
 </head>
 @php 
-$teacher = \App\Models\Teacher::where('submission_id', $submission->id)->first();
+$teacher = $submission->teacher;
 @endphp
 
 <body>

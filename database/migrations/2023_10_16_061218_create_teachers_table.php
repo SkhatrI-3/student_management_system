@@ -12,19 +12,19 @@ return new class extends Migration {
      */
     public function up()
     {
-       Schema::create('teachers', function (Blueprint $table) {
-    $table->id();
-    $table->string('teacher_name')->nullable();
-    $table->string('teacher_sub')->nullable();
-    $table->string('teacher_image')->nullable();
-    $table->string('class')->nullable();
-    $table->string('section')->nullable();
+        Schema::create('teachers', function (Blueprint $table) {
+            $table->id();
 
-    $table->unsignedBigInteger('user_id')->nullable();
-    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
 
-    $table->timestamps();
-});
+            $table->string('teacher_sub')->nullable();
+            $table->string('class')->nullable();
+            $table->string('section')->nullable();
+
+            $table->timestamps();
+        });
 
     }
 

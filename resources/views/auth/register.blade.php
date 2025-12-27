@@ -68,6 +68,7 @@
                                         <option value="" disabled selected>Select a role</option>
                                         <option value="teacher">Teacher</option>
                                         <option value="student">Student</option>
+                                        <option value="admin">Admin</option>
                                         <!-- Add more role options as needed -->
                                     </select>
                                 </div>

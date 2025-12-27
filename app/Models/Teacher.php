@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Teacher extends Model
 {
     use HasFactory;
-    protected $fillable=['teacher_name','teacher_sub','teacher_image','class','section','user_id'];
+protected $fillable = ['user_id', 'teacher_sub', 'class', 'section'];
     public function submission()
     {
         return $this->belongsTo(Teacher::class, 'submission_id');

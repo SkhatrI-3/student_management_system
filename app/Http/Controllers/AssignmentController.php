@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Assignment as F;
+
+use Illuminate\Support\Facades\File as F;
 use Auth;
 
 
@@ -111,7 +112,7 @@ class AssignmentController extends Controller
     {
         if ($request->file != NULL) {
             $request->validate([
-                'file' => 'file|mimes:png,jpg,jpeg|max:3000'
+                'file' => 'file|mimes:png,jpg,jpeg,pdf|max:3000'
             ]);
             $project = strtolower(str_replace(' ', '', $request->name) . '.' . $request->file->extension());
             $request->file->move(public_path('uploads'), $project);

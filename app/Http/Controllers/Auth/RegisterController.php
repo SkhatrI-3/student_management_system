@@ -75,7 +75,6 @@ class RegisterController extends Controller
         if($data['role']==='teacher'){
             Teacher::create([
                 'user_id'=> $user->id,
-                'teacher_name'=> $user->name,
                  ]);
         }
         return $user;
